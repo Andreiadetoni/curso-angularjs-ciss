@@ -3,7 +3,7 @@ myApp.controller('FormCtrl', function($scope){
 
 	$scope.indexTarefa = 0;
 	$scope.clicouEditar = false;
-
+	
 	$scope.pessoa = {
 		name: 'Andreia',
 		lastname: 'Detoni',
@@ -68,4 +68,17 @@ myApp.controller('FormCtrl', function($scope){
 		$scope.list[$scope.indexTarefa] = editObj;
 		$scope.clicouEditar = false;
 	}
+
+	//Função para remover tarefa
+	$scope.removeTarefa = function(remove) {
+		$scope.list.splice(remove, 1);
+
+	}
+
+	//Função para cancelar a edição
+	$scope.cancelarEdicao = function() {
+		$scope.clicouEditar = false;	
+
+	}
+
 });

@@ -14,13 +14,15 @@
 		<div class="jumbotron">
 			<h2 ng-bind= "'Cadatro de Tarefas'"></h2>
 			<form>
-				<div class="row">
+				<div class="row" ng-show="!clicouEditar">
 					<div class="form-group col-xs-12 col-sm-12">
 						<label for="tarefa">Tarefa</label>
 						<input type="text" class="form-control" id="tarefa" ng-model="tarefa"> </input>
 					</div>
 					<div class="col-xs-12">
-						<button class="btn btn-primary pull-right" ng-click="cadastraTarefa(tarefa)">Cadastrar</button>
+						<button class="btn btn-primary pull-right" ng-click="cadastraTarefa(tarefa)">Cadastrar</button
+							
+						</button>
 					</div>
 
 					
@@ -43,9 +45,21 @@
 						<input type="number" class="form-control" id="fone" ng-model="pessoa.fone"> </input>
 					</div>-->
 				</div>
+				<div class="row" ng-show="clicouEditar">
+					<div class="form-group col-xs-12 col-sm-12">
+						<input type="text" class="form-control" ng-model="renomear"> </input>
+					</div>
+					<div class="col-xs-12 ">
+						<button class="btn btn-primary "   ng-click="renomearTarefa(renomear)">Renomear</button>
+						<button class="btn btn-danger " ng-click="cancelarEdicao()">Cancelar</button>
+					</div>
+				</div>
 			</form>
 			<hr>
-			<div class="row">
+			<div class="row" ng-hide="list.length">
+				<h3 class="text-center">Não ha tarefas!</h3>
+			</div>
+			<div class="row" ng-show="list.length">
 				<div class="form-group col-xs-12">
 					<label for="search">Buscar</label>
 					<input type="text" class="form-control" id="search" ng-model="search"></input>
@@ -66,12 +80,15 @@
 
 					<body>
 						<tr ng-repeat="item in list | filter:search">
-							<td><input type="checkbox"></input></td>
+							<td><input type="checkbox" ng-click="removeTarefa($index)"></input></td>
 							<td ng-bind= "item.nomeTarefa"></td>
 							<td ng-bind= "item.dataTarefa | date:'dd/MM/yyyy'"></td>
 							<td>
 								<button class="btn btn-success" ng-click="editaTarefa($index)">
 									<i class="glyphicon glyphicon-pencil"></i>
+								</button>
+								<button class="btn btn-danger"  ng-click="removeTarefa($index)">
+									<i class="glyphicon glyphicon-trash"></i>
 								</button>
 								
 							</td>
@@ -80,13 +97,15 @@
 					</body>
 
 				</table>
+			
 
 				<div class="row" ng-show="clicouEditar">
 					<div class="form-group col-xs-8">
 						<input type="text" class="form-control" ng-model="renomear"> </input>
 					</div>
 					<div class="col-xs-4">
-						<button class="btn btn-primary pull-right" ng-click="renomearTarefa(renomear)">Renomear</button>
+						<button class="btn btn-primary" ng-click="renomearTarefa(renomear)">Renomear</button>
+						<button class="btn btn-danger " ng-click="cancelarEdicao()">Cancelar</button>
 					</div>
 				</div>
 
