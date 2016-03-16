@@ -1,31 +1,101 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp"> <!--ng-app ´para funcionar o angular-->
 <head>
-	<title>AngularJA - CISS</title>
+	<title>AngularJS - CISS</title>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/myApp.js"></script>
+	<script type="text/javascript" src="js/controller/formCtrl.js"></script>
 </head>
-<body>
+<body ng-controller="FormCtrl">
 	<div class="container">
 		<div class="jumbotron">
-			<h2>Formulário de Cadastro</h2>
-			<form id="form">
-				<div class="form-group ">
-					<label for="name">Nome</label>
-					<input type="text" class="form-control" id="name" placeholder="Nome">
+			<h2 ng-bind= "'Cadatro de Tarefas'"></h2>
+			<form>
+				<div class="row">
+					<div class="form-group col-xs-12 col-sm-12">
+						<label for="tarefa">Tarefa</label>
+						<input type="text" class="form-control" id="tarefa" ng-model="tarefa"> </input>
+					</div>
+					<div class="col-xs-12">
+						<button class="btn btn-primary pull-right" ng-click="cadastraTarefa(tarefa)">Cadastrar</button>
+					</div>
+
+					
+					<!--<div class="form-group  col-xs-12 col-sm-6">
+						<label for="lastname">Sobrenome</label>
+						<input type="text" class="form-control" id="lastname" ng-model="pessoa.lastname"> </input>
+					</div>
 				</div>
-				<div class="form-group ">
-					<label for="lastname">Sobrenome</label>
-					<input type="text" class="form-control" id="lastname" placeholder="Sobrenome">
+				<div class="row">
+					<div class="form-group col-xs-4 col-sm-2">
+						<label for="age">Idade</label>
+						<input type="number" class="form-control" id="age" ng-model="pessoa.age"> </input>
+					</div>
+					<div class="form-group col-xs-8 col-sm-4">
+						<label for="email">E-mail</label>
+						<input type="email" class="form-control" id="email" ng-model="pessoa.email"> </input>
+					</div>
+					<div class="form-group col-xs-12 col-sm-6">
+						<label for="fone">Telefone</label>
+						<input type="number" class="form-control" id="fone" ng-model="pessoa.fone"> </input>
+					</div>-->
 				</div>
-				<input class="pull-right" type="submit" value= "Enviar"></input>
 			</form>
+			<hr>
+			<div class="row">
+				<div class="form-group col-xs-12">
+					<label for="search">Buscar</label>
+					<input type="text" class="form-control" id="search" ng-model="search"></input>
+				</div>
 
+				<p>{{ search }}</p>
 
-			<script type="text/javascript" src="js/script.js"></script>
+				<table class="table">
+					<thead>
+					<tr>
+						<th>Check</th>
+						<th>Tarefa</th>
+						<th>Data</th>
+						<th>Opções</th>
+					</tr>
+					
+					</thead>
+
+					<body>
+						<tr ng-repeat="item in list | filter:search">
+							<td><input type="checkbox"></input></td>
+							<td ng-bind= "item.nomeTarefa"></td>
+							<td ng-bind= "item.dataTarefa | date:'dd/MM/yyyy'"></td>
+							<td>
+								<button class="btn btn-success" ng-click="editaTarefa($index)">
+									<i class="glyphicon glyphicon-pencil"></i>
+								</button>
+								
+							</td>
+						</tr>
+
+					</body>
+
+				</table>
+
+				<div class="row" ng-show="clicouEditar">
+					<div class="form-group col-xs-8">
+						<input type="text" class="form-control" ng-model="renomear"> </input>
+					</div>
+					<div class="col-xs-4">
+						<button class="btn btn-primary pull-right" ng-click="renomearTarefa(renomear)">Renomear</button>
+					</div>
+				</div>
+
+			</div>
+		
 		</div>
 
 	</div>
 </body>
 </html>
+
+
